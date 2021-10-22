@@ -137,14 +137,26 @@ function builldNavComponent() {
  */
 function isElementInViewport(element) {
   const currentBound = element.getBoundingClientRect();
-  return (
-    currentBound.top >= 0 &&
-    currentBound.left >= 0 &&
-    currentBound.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
-    currentBound.right <=
-      (window.innerWidth || document.documentElement.clientWidth)
-  );
+  if (currentBound.height > window.innerHeight) {
+    return (
+      currentBound.top >= window.innerHeight - currentBound.height &&
+      currentBound.left >= 0 &&
+      currentBound.bottom <=
+        (window.innerHeight + currentBound.height ||
+          document.documentElement.clientHeight) &&
+      currentBound.right <=
+        (window.innerWidth || document.documentElement.clientWidth)
+    );
+  } else {
+    return (
+      currentBound.top >= 0 &&
+      currentBound.left >= 0 &&
+      currentBound.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      currentBound.right <=
+        (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
 }
 
 /**
